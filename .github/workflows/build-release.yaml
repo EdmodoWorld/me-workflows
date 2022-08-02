@@ -10,12 +10,12 @@ jobs:
     - name: "Checkout source code"
       uses: actions/checkout@v2
     # Security-DependencyCheck
-    - name: "Dependency Check"
-      uses: javixeneize/DependencyCheck_Action@main
-      id: Depcheck
-      with:
-        path: '.'
-        format: 'HTML'
+#    - name: "Dependency Check"
+#      uses: javixeneize/DependencyCheck_Action@main
+#      id: Depcheck
+#      with:
+#        path: '.'
+#        format: 'HTML'
     # Security-DependencyCheck-UploadReport  
     - name: "Upload Check Reports"
       uses: actions/upload-artifact@v3.0.0
