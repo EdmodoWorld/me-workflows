@@ -44,7 +44,8 @@ jobs:
         if [[ '${{ github.ref }}' == refs/heads/${RELEASE_BRANCH} ]]; then
           echo "::set-output name=tag::${{ github.ref_name }}-${{ github.sha }}"
         elif [[ '${{ github.ref }}' =~ refs/heads/hotfix.* ]]; then
-          echo "::set-output name=tag::${{ github.ref_name }}-${{ github.sha }}"
+          BRANCH=`echo ${{ github.ref_name }} | sed 's/\///'`
+          echo "::set-output name=tag::${BRANCH}-${{ github.sha }}"
         else
           echo "This isn't the release or hotfix branch. Exiting..."
           exit 1
