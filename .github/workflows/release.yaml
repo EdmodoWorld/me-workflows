@@ -42,7 +42,7 @@ jobs:
         cat .github/global.env >> ${GITHUB_ENV}
         source .github/${STG}.env
         cat .github/${STG}.env >> ${GITHUB_ENV}
-        BRANCH=`git branch --remote --verbose --no-abbrev --contains | sed -rne 's/^[^\/]*\/([^\ ]+).*$/\1/p'`
+        BRANCH=`git branch --remote --contains | sed "s|[[:space:]]*origin/||"`
         echo "::set-output name=tag::${BRANCH}-${{ github.event.deployment.sha }}"
         echo "::set-output name=kubernetes-namespace::${KUBERNETES_NAMESPACE}"
     - name: AWS assume cicd role
