@@ -14,6 +14,8 @@ jobs:
         environment: ${{ github.event.deployment.environment }}
     - name: "Checkout source code"
       uses: actions/checkout@v2
+      with:
+        fetch-depth: 0      
     - name: "Prepare environment"
       id: prep
       run: |
