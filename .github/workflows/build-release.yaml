@@ -36,15 +36,18 @@ jobs:
         cat .github/global.env >> ${GITHUB_ENV}
         STAGE=staging
         SHORT_SHA=`git rev-parse --short ${{ github.sha }}`
-        echo "REVISION=${RELEASE_BRANCH}/${SHORT_SHA}" >> $GITHUB_ENV
+        echo "REVISION=${{ github.ref_name }}/${SHORT_SHA}" >> $GITHUB_ENV
+        source .github/${STAGE}.env
+        cat .github/${STAGE}.env >> ${GITHUB_ENV}        
 
-        # Only rlease branch is supported
+        # Only rlease or hotfix branch is supported
         if [[ '${{ github.ref }}' == refs/heads/${RELEASE_BRANCH} ]]; then
-            echo "::set-output name=tag::release-${{ github.sha }}"
-            source .github/${STAGE}.env
-            cat .github/${STAGE}.env >> ${GITHUB_ENV}
+          echo "::set-output name=tag::${{ github.ref_name }}-${{ github.sha }}"
+        elif [[ '${{ github.ref }}' =~ refs/heads/hotfix.* ]]; then
+          BRANCH=`echo ${{ github.ref_name }} | sed 's/\///'`
+          echo "::set-output name=tag::${BRANCH}-${{ github.sha }}"
         else
-          echo "This isn't the release branch. Exiting..."
+          echo "This isn't the release or hotfix branch. Exiting..."
           exit 1
         fi
 
