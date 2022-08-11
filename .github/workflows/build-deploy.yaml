@@ -9,6 +9,9 @@ jobs:
     steps:
     - name: "Checkout source code"
       uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.GH_BOT_PAT }}
+        submodules: recursive
     - name: "Code backup"
       uses: jakejarvis/s3-sync-action@master
       with:

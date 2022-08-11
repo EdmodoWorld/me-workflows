@@ -9,6 +9,9 @@ jobs:
     steps:
     - name: "Checkout source code"
       uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.GH_BOT_PAT }}
+        submodules: recursive
     - name: "Prepare environment"
       id: prep
       run: |
