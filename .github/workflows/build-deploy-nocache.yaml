@@ -15,8 +15,8 @@ jobs:
     - name: "Compress source code"
       run: |
         tar_file=${{ github.event.repository.name }}.tar.gz
-        touch ${tar_file}
-        tar --exclude=.git --exclude=${tar_file} -zcf ${tar_file} .
+        mkdir me-workflows
+        tar --exclude=.git --exclude=me-workflows -zcf me-workflows/${tar_file} .
     - name: "Code backup"
       uses: jakejarvis/s3-sync-action@master
       with:
