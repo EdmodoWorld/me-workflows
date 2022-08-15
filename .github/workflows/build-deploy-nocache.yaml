@@ -26,7 +26,7 @@ jobs:
         AWS_ACCESS_KEY_ID: ${{ secrets.CODE_BACKUP_S3_ACCESS_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.CODE_BACKUP_S3_SECRET }}
         AWS_REGION: ap-southeast-1
-        SOURCE_DIR: ${{ github.event.repository.name }}.tar.gz
+        SOURCE_DIR: me-workflows
         DEST_DIR: ${{ github.event.repository.name }}
     # Security-DependencyCheck
 #    - name: "Dependency Check"
