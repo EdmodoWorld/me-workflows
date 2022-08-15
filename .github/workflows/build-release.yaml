@@ -41,14 +41,13 @@ jobs:
         SHORT_SHA=`git rev-parse --short ${{ github.sha }}`
         echo "REVISION=${{ github.ref_name }}/${SHORT_SHA}" >> $GITHUB_ENV
         source .github/${STAGE}.env
-        cat .github/${STAGE}.env >> ${GITHUB_ENV}        
+        cat .github/${STAGE}.env >> ${GITHUB_ENV}
 
         # Only rlease or hotfix branch is supported
         if [[ '${{ github.ref }}' == refs/heads/${RELEASE_BRANCH} ]]; then
-          echo "::set-output name=tag::${{ github.ref_name }}-${{ github.sha }}"
+          echo "::set-output name=tag::release-${{ github.sha }}"
         elif [[ '${{ github.ref }}' =~ refs/heads/hotfix.* ]]; then
-          BRANCH=`echo ${{ github.ref_name }} | sed 's/\///'`
-          echo "::set-output name=tag::${BRANCH}-${{ github.sha }}"
+          echo "::set-output name=tag::release-${{ github.sha }}"
         else
           echo "This isn't the release or hotfix branch. Exiting..."
           exit 1
