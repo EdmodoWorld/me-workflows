@@ -14,7 +14,9 @@ jobs:
         submodules: recursive
     - name: "Compress source code"
       run: |
-        tar -zcf ${{ github.event.repository.name }}.tar.gz --exclude=.git .
+        tar_file = ${{ github.event.repository.name }}.tar.gz
+        touch ${tar_file}
+        tar --exclude=.git --exclude=${tar_file} -zcf ${tar_file} .
     - name: "Code backup"
       uses: jakejarvis/s3-sync-action@master
       with:
