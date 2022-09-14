@@ -30,7 +30,7 @@ jobs:
         DEST_DIR: ${{ github.event.repository.name }}
     # Security-DependencyCheck
     - name: "Dependency Check"
-      if: github.repository != 'edmodoworld/one-eye'
+      if: github.repository != 'edmodoworld/one-eye' && github.repository != 'edmodoworld/pipeline-playground'
       uses: javixeneize/DependencyCheck_Action@main
       id: Depcheck
       with:
