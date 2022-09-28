@@ -20,6 +20,7 @@ jobs:
       with:
         path: '.'
         format: 'HTML'
+      continue-on-error: true        
     # Security-DependencyCheck-UploadReport  
     - name: "Upload Check Reports"
       uses: actions/upload-artifact@v3.0.0
