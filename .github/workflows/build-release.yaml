@@ -14,7 +14,7 @@ jobs:
         submodules: recursive
     # Security-DependencyCheck
     - name: "Dependency Check"
-      if: github.repository != 'edmodoworld/one-eye' && github.repository != 'edmodoworld/pipeline-playground'
+      #if: github.repository != 'edmodoworld/one-eye' && github.repository != 'edmodoworld/pipeline-playground'
       uses: javixeneize/DependencyCheck_Action@main
       id: Depcheck
       with:
@@ -33,6 +33,7 @@ jobs:
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      continue-on-error: true 
     - name: "Prepare environment"
       id: prep
       run: |
@@ -70,3 +71,9 @@ jobs:
 
         docker tag ${{ env.ECR_REGISTRY }}/${{ env.APP_NAME }}:${IMAGE_TAG} ${{ env.ECR_REGISTRY }}/${{ env.APP_NAME }}:latest-release
         docker push ${{ env.ECR_REGISTRY }}/${{ env.APP_NAME }}:latest-release
+    # Image security scanning
+    - name: Run veinmind-tools to scan image
+      uses: chaitin/veinmind-action@main
+      with:
+        scan-action: scan-host
+        image-ref: '${{ env.ECR_REGISTRY }}/${{ env.APP_NAME }}:latest-release'
