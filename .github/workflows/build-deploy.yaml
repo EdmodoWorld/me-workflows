@@ -80,7 +80,16 @@ jobs:
         source .github/global.env
         # Pull latest-main image for cache
         LATEST_MAIN_IMAGE=${{ env.ECR_REGISTRY }}/${{ env.APP_NAME }}:latest-main
-        docker pull ${LATEST_MAIN_IMAGE}
+        # if the latest-main image exists, cache from it
+        exists=$(docker manifest inspect ${LATEST_MAIN_IMAGE} > /dev/null ; echo $?)
+        if [  $exists -eq 0 ]
+        then
+           docker pull ${LATEST_MAIN_IMAGE}
+           docker build -f ${{ env.DOCKERFILE }} -t ${{ env.ECR_REGISTRY }}/${{ env.APP_NAME }}:${IMAGE_TAG} ${EXTRA_DOCKER_ARGS} . --cache-from ${LATEST_MAIN_IMAGE}
+        else
+           docker build -f ${{ env.DOCKERFILE }} -t ${{ env.ECR_REGISTRY }}/${{ env.APP_NAME }}:${IMAGE_TAG} ${EXTRA_DOCKER_ARGS} .
+        fi
+        
 
         # Build and push the image using the SHA tag
         docker build -f ${{ env.DOCKERFILE }} -t ${{ env.ECR_REGISTRY }}/${{ env.APP_NAME }}:${IMAGE_TAG} ${EXTRA_DOCKER_ARGS} . --cache-from ${LATEST_MAIN_IMAGE}
