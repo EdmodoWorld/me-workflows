@@ -40,11 +40,11 @@ jobs:
         # Source our global environment variables & add them to GITHUB_ENV for subsequent steps
         source .github/global.env
         cat .github/global.env >> ${GITHUB_ENV}
-        STAGE=staging
+        #STAGE=staging
         SHORT_SHA=`git rev-parse --short ${{ github.sha }}`
         echo "REVISION=${{ github.ref_name }}/${SHORT_SHA}" >> $GITHUB_ENV
-        source .github/${STAGE}.env
-        cat .github/${STAGE}.env >> ${GITHUB_ENV}
+        #source .github/${STAGE}.env
+        #cat .github/${STAGE}.env >> ${GITHUB_ENV}
 
         # Only rlease or hotfix branch is supported
         if [[ '${{ github.ref }}' == refs/heads/${RELEASE_BRANCH} ]]; then
