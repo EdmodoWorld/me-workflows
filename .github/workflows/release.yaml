@@ -69,7 +69,7 @@ jobs:
       id: deploy
       uses: docker://143302736797.dkr.ecr.me-south-1.amazonaws.com/infrastructure:latest
       env:
-        RELEASE_NAME: ${{ env.APP_NAME }}
+        RELEASE_NAME: ${{ env.APP_NAME }}${{ env.CANARY }}
         IMAGE_NAME: ${{ env.ECR_REGISTRY }}/${{ env.APP_NAME }}
         IMAGE_TAG: ${{ steps.prep.outputs.tag }}
         AWS_REGION: ${{ env.AWS_REGION }}
