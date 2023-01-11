@@ -30,13 +30,12 @@ jobs:
         elif [[ '${{ github.event.deployment.payload.step }}' == ${MAIN_BRANCH} ]]; then
           if [[ '${{ github.event.deployment.environment }}' == qa ]]; then
             STG=${{ github.event.deployment.environment }}
+          elif [[ '${{ github.event.deployment.environment }}' == qa-canary ]]; then
+            STG=qa
+            echo CANARY=-canary >> ${GITHUB_ENV}
           else
             echo "This isn't the deployment on qa from main. Exiting..."
             exit 1
-          fi
-
-          if [[ '${{ github.event.deployment.payload.canary }}' == true ]]; then
-            export CANARY=-canary
           fi
         else
           echo "This isn't either release staging or qa or prod. Exiting..."
