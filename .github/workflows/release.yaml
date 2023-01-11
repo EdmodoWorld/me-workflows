@@ -34,6 +34,10 @@ jobs:
             echo "This isn't the deployment on qa from main. Exiting..."
             exit 1
           fi
+
+          if [[ '${{ github.event.deployment.payload.canary }}' == true ]]; then
+            export CANARY=-canary
+          fi
         else
           echo "This isn't either release staging or qa or prod. Exiting..."
           exit 1
