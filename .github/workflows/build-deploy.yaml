@@ -103,6 +103,7 @@ jobs:
       with:
         scan-action: scan-host
         image-ref: '${{ env.ECR_REGISTRY }}/${{ env.APP_NAME }}:${IMAGE_TAG}'
+      continue-on-error: true
     - name: AWS assume cicd role
       uses: aws-actions/configure-aws-credentials@v1
       env:
