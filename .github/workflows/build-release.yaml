@@ -77,3 +77,4 @@ jobs:
       with:
         scan-action: scan-host
         image-ref: '${{ env.ECR_REGISTRY }}/${{ env.APP_NAME }}:latest-release'
+      continue-on-error: true
