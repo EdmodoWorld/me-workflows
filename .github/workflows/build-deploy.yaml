@@ -92,7 +92,6 @@ jobs:
         
 
         # Build and push the image using the SHA tag
-        docker build -f ${{ env.DOCKERFILE }} -t ${{ env.ECR_REGISTRY }}/${{ env.APP_NAME }}:${IMAGE_TAG} ${EXTRA_DOCKER_ARGS} . --cache-from ${LATEST_MAIN_IMAGE}
         docker push ${{ env.ECR_REGISTRY }}/${{ env.APP_NAME }}:${IMAGE_TAG}
 
         docker tag ${{ env.ECR_REGISTRY }}/${{ env.APP_NAME }}:${IMAGE_TAG} ${LATEST_MAIN_IMAGE}
