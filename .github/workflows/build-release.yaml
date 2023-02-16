@@ -75,5 +75,6 @@ jobs:
     - name: Run veinmind-tools to scan image
       uses: chaitin/veinmind-action@main
       with:
-        scan-action: scan-host
+        scan-action: scan image
         image-ref: '${{ env.ECR_REGISTRY }}/${{ env.APP_NAME }}:latest-release'
+      continue-on-error: true

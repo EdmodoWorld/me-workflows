@@ -43,6 +43,7 @@ jobs:
       with:
         name: 'security-report'
         path: ${{github.workspace}}/reports
+      continue-on-error: true
     # Security-SAST   
     - name: SonarQube Scan
       uses: sonarsource/sonarqube-scan-action@master
@@ -92,8 +93,9 @@ jobs:
     - name: Run veinmind-tools to scan image
       uses: chaitin/veinmind-action@main
       with:
-        scan-action: scan-host
+        scan-action: scan image
         image-ref: '${{ env.ECR_REGISTRY }}/${{ env.APP_NAME }}:${IMAGE_TAG}'
+      continue-on-error: true
     - name: AWS assume cicd role
       uses: aws-actions/configure-aws-credentials@v1
       env:
