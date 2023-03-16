@@ -78,3 +78,9 @@ jobs:
         scan-action: scan image
         image-ref: '${{ env.ECR_REGISTRY }}/${{ env.APP_NAME }}:latest-release'
       continue-on-error: true
+    # Sensitive data check
+    - name: Sensitive Data Check
+      uses: Vannevelj/sensitivity@v1.11
+      with:
+        path: .
+        token: ${{ secrets.GITHUB_TOKEN }}
