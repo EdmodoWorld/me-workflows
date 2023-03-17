@@ -40,6 +40,8 @@ jobs:
       with:
         path: .
         token: ${{ secrets.GITHUB_TOKEN }}
+        #ignorePaths: '["src/__tests__/checker.*.test.ts"]'
+        ignoreEmails: '[".*@edmodo.com",".*@edmodoworld.com"]'
       continue-on-error: true
     - name: "Prepare environment"
       id: prep
