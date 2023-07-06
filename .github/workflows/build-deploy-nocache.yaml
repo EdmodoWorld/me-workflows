@@ -124,7 +124,7 @@ jobs:
         role-session-name: GitHubAction
     - name: Deploy
       id: deploy
-      uses: docker://143302736797.dkr.ecr.me-south-1.amazonaws.com/infrastructure:latest
+      uses: docker://143302736797.dkr.ecr.ap-southeast-1.amazonaws.com/infrastructure:latest
       env:
         RELEASE_NAME: ${{ env.APP_NAME }}
         IMAGE_NAME: ${{ env.ECR_REGISTRY }}/${{ env.APP_NAME }}
